@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -27,11 +28,11 @@ func main() {
 
 	http.HandleFunc("/ping", handlePing)
 	log.Println("listening on port: ", port)
-	log.Println(http.ListenAndServe("localhost:"+port, nil).Error())
+	log.Println(http.ListenAndServe(":"+port, nil))
 }
 
 func handlePing(w http.ResponseWriter, req *http.Request) {
-	w.Write([]byte("pong"))
+	fmt.Fprintf(w, "pong\n")
 }
 
 func envOrDefault(key, defaultVal string) string {
